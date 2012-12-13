@@ -1,10 +1,14 @@
 import org.jdesktop.swingx.JXTreeTable;
+import org.jdesktop.swingx.decorator.ColorHighlighter;
+import org.jdesktop.swingx.decorator.HighlightPredicate;
+import org.jdesktop.swingx.decorator.PatternPredicate;
 import org.xml.sax.SAXException;
 
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 /**
  * Implements a checkstyle panel.
@@ -64,6 +68,18 @@ public class CheckStylePanel extends JPanel {
     private void init() {
 
         treeView.setSortable(false);
+
+        HighlightPredicate warningPredicate = new PatternPredicate(Pattern.compile("warning",
+                Pattern.CASE_INSENSITIVE), 1);
+        ColorHighlighter infoHighlighter = new ColorHighlighter(warningPredicate,
+                Color.YELLOW, null);
+        treeView.addHighlighter(infoHighlighter);
+
+        HighlightPredicate errorPredicate = new PatternPredicate(Pattern.compile("error",
+                Pattern.CASE_INSENSITIVE), 1);
+        ColorHighlighter errorHighlighter = new ColorHighlighter(errorPredicate, Color.RED, null);
+        treeView.addHighlighter(errorHighlighter);
+
 
         setColumnWidths();
 
