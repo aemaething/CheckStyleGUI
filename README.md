@@ -7,6 +7,3 @@ A simple checkstyle GUI, written in Java Swing(x).
 * add swingx-all-1.6.4.jar to your CLASS_PATH
 * get a valid checkstyle.xml ruleset
 * compile and start GUI
-
-## Attention:
-* intro screen will be loaded from github.
