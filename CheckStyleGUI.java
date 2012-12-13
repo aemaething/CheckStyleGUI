@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Observable;
@@ -53,7 +55,7 @@ public class CheckStyleGUI extends JFrame implements ActionListener, Observer {
     /**
      * Run item of menu bar.
      */
-    private JMenuItem run;
+    private JMenuItem runMenuItem;
 
 
 
@@ -115,15 +117,19 @@ public class CheckStyleGUI extends JFrame implements ActionListener, Observer {
         JMenuBar menuBar = new JMenuBar();
 
         JMenu fileMenu = new JMenu("File");
+        fileMenu.setMnemonic('F');
 
         JMenuItem exitItem = new JMenuItem("Exit");
+        exitItem.setMnemonic('x');
         exitItem.addActionListener(this);
         fileMenu.add(exitItem);
 
 
         JMenu checkStyle = new JMenu("CheckStyle");
+        checkStyle.setMnemonic('C');
 
         JMenuItem openItem = new JMenuItem("Open Project");
+        openItem.setMnemonic('O');
         openItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -139,6 +145,7 @@ public class CheckStyleGUI extends JFrame implements ActionListener, Observer {
         checkStyle.add(openItem);
 
         JMenuItem checkStyleConfig = new JMenuItem("Set checkstyle config");
+        checkStyleConfig.setMnemonic('S');
         checkStyleConfig.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -155,8 +162,9 @@ public class CheckStyleGUI extends JFrame implements ActionListener, Observer {
         checkStyle.add(checkStyleConfig);
 
 
-        run = new JMenuItem("Run");
-        run.addActionListener(new ActionListener() {
+        runMenuItem = new JMenuItem("Run");
+        runMenuItem.setMnemonic('R');
+        runMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -165,7 +173,7 @@ public class CheckStyleGUI extends JFrame implements ActionListener, Observer {
                 getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         });
-        checkStyle.add(run);
+        checkStyle.add(runMenuItem);
 
 
 
@@ -198,9 +206,9 @@ public class CheckStyleGUI extends JFrame implements ActionListener, Observer {
         if ((preferences.getCheckStyleConfig().length() > 0)
                 && (preferences.getWorkingDir().length() > 0)) {
             setTitle(String.format("%s - %s", FRAME_TITLE, preferences.getWorkingDir()));
-            run.setEnabled(true);
+            runMenuItem.setEnabled(true);
         } else {
-            run.setEnabled(false);
+            runMenuItem.setEnabled(false);
         }
     }
 }
