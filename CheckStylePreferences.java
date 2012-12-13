@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Observable;
 import java.util.prefs.Preferences;
 
@@ -43,10 +44,33 @@ class CheckStylePreferences extends Observable {
 
         checkStyleConfig = prefs.get(CHECKSTYLE_CONFIG, null);
         workingDir = prefs.get(WORKING_DIR, null);
+        checkPreferences();
 
         setChanged();
         notifyObservers();
     }
+
+
+    /**
+     * Resets preferences if files or directory have changed.
+     */
+    private void checkPreferences() {
+
+        if (checkStyleConfig.length() != 0) {
+            File csf = new File(checkStyleConfig);
+            if (!(csf.isFile() && csf.canRead())) {
+                checkStyleConfig = null;
+            }
+        }
+
+        if (workingDir.length() != 0) {
+            File wd = new File(workingDir);
+            if (!(wd.isDirectory() && wd.canRead())) {
+                workingDir = null;
+            }
+        }
+    }
+
 
 
     /**
@@ -72,6 +96,7 @@ class CheckStylePreferences extends Observable {
     public String getCheckStyleConfig() {
         return checkStyleConfig;
     }
+
 
     /**
      * Setter of checkStyleConfig.
