@@ -9,6 +9,5 @@ A simple checkstyle GUI, written in Java Swing(x).
 * compile and start GUI
 
 ## ToDos:
-* Coloring results
 * Adding Keyboard shortcuts
 * etc.
