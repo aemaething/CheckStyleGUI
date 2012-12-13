@@ -115,9 +115,15 @@ public class CheckStyleGUI extends JFrame implements ActionListener, Observer {
         JMenuBar menuBar = new JMenuBar();
 
         JMenu fileMenu = new JMenu("File");
-        fileMenu.setBorderPainted(true);
 
-        JMenuItem openItem = new JMenuItem("open");
+        JMenuItem exitItem = new JMenuItem("Exit");
+        exitItem.addActionListener(this);
+        fileMenu.add(exitItem);
+
+
+        JMenu checkStyle = new JMenu("CheckStyle");
+
+        JMenuItem openItem = new JMenuItem("Open Project");
         openItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -130,30 +136,9 @@ public class CheckStyleGUI extends JFrame implements ActionListener, Observer {
                 }
             }
         });
-        fileMenu.add(openItem);
+        checkStyle.add(openItem);
 
-        JMenuItem exitItem = new JMenuItem("exit");
-        exitItem.addActionListener(this);
-        fileMenu.add(exitItem);
-
-
-        JMenu checkStyle = new JMenu("CheckStyle");
-
-        run = new JMenuItem("run");
-        run.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                checkStylePanel.performCheckStyleRun(preferences);
-                layout.show(getContentPane(), PANEL_CHECK_STYLE);
-                getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            }
-        });
-        checkStyle.add(run);
-
-        JMenu settings = new JMenu("Settings");
-
-        JMenuItem checkStyleConfig = new JMenuItem("CheckStyle config");
+        JMenuItem checkStyleConfig = new JMenuItem("Set checkstyle config");
         checkStyleConfig.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -167,12 +152,25 @@ public class CheckStyleGUI extends JFrame implements ActionListener, Observer {
                 }
             }
         });
-        settings.add(checkStyleConfig);
+        checkStyle.add(checkStyleConfig);
+
+
+        run = new JMenuItem("Run");
+        run.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                checkStylePanel.performCheckStyleRun(preferences);
+                layout.show(getContentPane(), PANEL_CHECK_STYLE);
+                getContentPane().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+        checkStyle.add(run);
+
 
 
         menuBar.add(fileMenu);
         menuBar.add(checkStyle);
-        menuBar.add(settings);
 
         return menuBar;
     }
