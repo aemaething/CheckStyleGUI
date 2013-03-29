@@ -10,4 +10,5 @@ A simple checkstyle GUI, written in Java Swing(x).
 
 ## ToDos:
 * Adding crossplatform keyboard shortcuts
+* Add MultiThreading
 * etc.
