@@ -56,17 +56,21 @@ class CheckStylePreferences extends Observable {
      */
     private void checkPreferences() {
 
-        if (checkStyleConfig.length() != 0) {
-            File csf = new File(checkStyleConfig);
-            if (!(csf.isFile() && csf.canRead())) {
-                checkStyleConfig = null;
-            }
-        }
+        // TODO cleanup this mess...
 
-        if (workingDir.length() != 0) {
-            File wd = new File(workingDir);
-            if (!(wd.isDirectory() && wd.canRead())) {
-                workingDir = null;
+        if (checkStyleConfig != null) {
+            if (checkStyleConfig.length() != 0) {
+                File csf = new File(checkStyleConfig);
+                if (!(csf.isFile() && csf.canRead())) {
+                    checkStyleConfig = null;
+                }
+            }
+
+            if (workingDir.length() != 0) {
+                File wd = new File(workingDir);
+                if (!(wd.isDirectory() && wd.canRead())) {
+                    workingDir = null;
+                }
             }
         }
     }
